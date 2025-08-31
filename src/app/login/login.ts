@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Header } from '../header/header';
+import { Header } from '../shared/components/header/header';
+import { Footer } from '../shared/components/footer/footer';
 
 @Component({
   selector: 'app-login',
-  imports: [ Header],
+  imports: [ Header, Footer],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
