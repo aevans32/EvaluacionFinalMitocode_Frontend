@@ -1,0 +1,32 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  & .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & .filter {
+      width: 940px;
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    & .event-list {
+      width: 1000px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+
+      & app-event-card {
+        cursor: pointer;
+        border-radius: 8px;
+      }
+    }
+  }
+}

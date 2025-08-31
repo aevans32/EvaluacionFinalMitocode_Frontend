@@ -1,0 +1,36 @@
+<header>
+  <div class="container">
+    <div class="logo-container">
+      <img src="images/png-clipart-school-library-drawing-school-child-book-thumbnail.png" alt="logo" />
+      <h1>TIENDA DE LIBROS</h1>
+    </div>
+    <div class="search-container">
+      <!-- <input type="text" placeholder="Buscar..." (input)="onInput($event)" /> -->
+    </div>
+    <button matButton class="primary" [routerLink]="'/'">Home</button>
+
+    <!-- @if(authService.getIsLoggedIn()){
+    <div class="buttons-container">
+      <button
+        matButton
+        class="primary"
+        [routerLink]="
+          authService.getRole() === 'Administrator' ? '/admin' : '/customer'
+        "
+      >
+        MENU
+      </button>
+      <button matButton class="accent" (click)="authService.logout()">
+        CERRAR SESIÓN
+      </button>
+    </div>
+    } @else {
+    <div class="buttons-container">
+      <button matButton class="primary" routerLink="/login">INGRESAR</button>
+      <button matButton class="accent" routerLink="/register">
+        REGÍSTRATE
+      </button>
+    </div>
+    } -->
+  </div>
+</header>
