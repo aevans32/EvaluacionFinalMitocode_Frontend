@@ -1,0 +1,22 @@
+:root {
+  --mat-datepicker-calendar-body-label-text-color: white;
+  --mat-datepicker-calendar-date-text-color: white;
+  --mat-datepicker-calendar-header-text-color: gray;
+  --mat-datepicker-calendar-period-button-text-color: var(--primary-color);
+  --mat-datepicker-calendar-period-button-icon-color: var(--accent-color);
+  --mat-datepicker-calendar-navigation-button-icon-color: var(--primary-color);
+  --mat-datepicker-calendar-container-background-color: var(--secondary-color);
+  --mat-datepicker-calendar-date-hover-state-background-color: var(
+    --accent-color
+  );
+  --mat-timepicker-container-background-color: var(--secondary-color);
+}
+.mat-calendar-body-cell-content {
+  transition: background-color 300ms;
+}
+.mat-datepicker-content {
+  border: 2px solid var(--primary-color);
+}
+.mat-timepicker-panel {
+  border: 2px solid var(--primary-color);
+}
