@@ -5,11 +5,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Auth } from '../shared/services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
-  imports: [Header, Footer, MatFormFieldModule, ReactiveFormsModule, MatButton, RouterLink],
+  imports: [Header, Footer, MatFormFieldModule, ReactiveFormsModule, MatButtonModule, RouterLink, MatInputModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -30,7 +31,7 @@ export class Login {
 
     this.authService.login(email, password).subscribe((res) => {
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('tokenExpiration', res.data.expirationDate);
+      localStorage.setItem('tokenExpiration', res.data.expiration);
       this.authService.decodeToken();
       // this.notifications.success('Login exitoso', 'Bienvenido');
       this.router.navigateByUrl('/');

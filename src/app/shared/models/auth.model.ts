@@ -1,7 +1,7 @@
 export interface LoginApiResponse {
     data: {
         token: string;
-        expirationDate: string;
+        expiration: string;
     };
     success: boolean;
     errorMessage: string;

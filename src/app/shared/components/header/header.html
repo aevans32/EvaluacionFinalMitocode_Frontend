@@ -7,9 +7,10 @@
     <div class="search-container">
       <!-- <input type="text" placeholder="Buscar..." (input)="onInput($event)" /> -->
     </div>
-    <button matButton class="primary" [routerLink]="'/'">Home</button>
+    <button matButton class="primary" [routerLink]="'/'">HOME</button>
 
-    @if(authService.getIsLoggedIn()){
+    @if(authService.getIsLoggedIn())
+    {
     <div class="buttons-container">
       <button
         matButton
@@ -24,12 +25,13 @@
         CERRAR SESIÓN
       </button>
     </div>
-    } @else {
+    } 
+    @else 
+    {
     <div class="buttons-container">
+      <!-- Botones de ingresar y registrate en caso de no estar loggin in -->
       <button matButton class="primary" routerLink="/login">INGRESAR</button>
-      <button matButton class="accent" routerLink="/register">
-        REGÍSTRATE
-      </button>
+      <button matButton class="accent" routerLink="/register">REGÍSTRATE</button>
     </div>
     }
   </div>

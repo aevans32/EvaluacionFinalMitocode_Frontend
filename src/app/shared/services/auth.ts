@@ -9,7 +9,7 @@ import { ChangePasswordRequestBody, LoginApiResponse, RegisterRequestBody } from
 })
 export class Auth {
 
-    private baseUrl = 'http://localhost:7294/api/';
+    private baseUrl = 'https://localhost:7294/api/';
     private http = inject(HttpClient);
 
     private tokenExpiration = signal(new Date());
