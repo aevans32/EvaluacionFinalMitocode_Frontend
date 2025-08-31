@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +11,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.css'
 })
 export class Header {
+  authService = inject(Auth);
+
+  @Output() searchValueChange = new EventEmitter<string>();
 
 }
