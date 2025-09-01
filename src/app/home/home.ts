@@ -22,11 +22,10 @@ export class Home implements OnInit{
   libroService = inject(LibrosService);
 
   ngOnInit(): void {
-      this.libroService.getData().subscribe((response) => {
-        this.initialLibros = response.libros;
-        this.libros.set(this.initialLibros);
-      });
-      // TODO: agregar funcionalidad para filtrado por serach bar
+    this.libroService.getData().subscribe((items) => {
+      this.initialLibros = items;
+      this.libros.set(items);
+    });
   }
 
 }

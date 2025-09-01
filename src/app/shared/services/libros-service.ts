@@ -12,6 +12,8 @@ export class LibrosService {
     private http = inject(HttpClient);
 
     getData() {
-        return this.http.get<HomeApiResponse>(this.baseUrl + 'title');
-    }
+    return this.http
+      .get<HomeApiResponse>(this.baseUrl + 'title')  // ajusta el endpoint si corresponde
+      .pipe(map(res => res.data ?? []));        // ← devolvemos solo el array
+  }
 }
