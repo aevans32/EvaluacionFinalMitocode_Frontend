@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { Header } from '../shared/components/header/header';
 import { Footer } from '../shared/components/footer/footer';
 import { RouterLink } from "@angular/router";
-import { Libro } from '../shared/models/libro';
+import { Libro } from '../shared/models/libro.model';
 import { LibrosService } from '../shared/services/libros-service';
 import { EventCard } from '../shared/components/event-card/event-card';
 

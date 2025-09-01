@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Libro } from '../../models/libro';
+import { Libro } from '../../models/libro.model';
 
 @Component({
   selector: 'app-event-card',

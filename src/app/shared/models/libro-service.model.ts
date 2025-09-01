@@ -1,4 +1,4 @@
-import { Libro } from "./libro";
+import { Libro } from "./libro.model";
 
 export interface HomeApiResponse {
     data: Libro[];

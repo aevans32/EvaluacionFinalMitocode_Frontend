@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { HomeApiResponse } from "../models/libro-service";
+import { HomeApiResponse } from "../models/libro-service.model";
 import { map } from "rxjs";
 
 @Injectable({
