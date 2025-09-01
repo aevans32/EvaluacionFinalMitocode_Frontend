@@ -1,5 +1,16 @@
 <div class="page-container">
     <app-header></app-header>
-    <span>This is the Home component.</span>
+    <div class="content-container">
+        <div class="event-list">
+            @for (libro of libros(); track libro.id)
+            {
+                <app-event-card [data]="libro"></app-event-card>
+            }
+            @empty
+            {
+                <h2>No encontramos libros, sorry!</h2>
+            }
+        </div>
+    </div>
     <app-footer></app-footer>
 </div>

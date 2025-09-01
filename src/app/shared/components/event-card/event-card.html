@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="top">
+        <div class="date-time-container">
+            <span class="date"> 10-Feb </span>
+            <span class="time">15:45</span>
+        </div>
+        <div class="genre-container">
+            <span>{{ data.genreId }}</span>
+        </div>
+    </div>
+    <div class="middle">
+        <img [src]="data.imageUrl" alt="Book cover" (error)="onImageError()" />
+    </div>
+    <div class="bottom">
+        <span class="description">{{ data.description }}</span>
+        <span class="place">Cuadra 32</span>
+    </div>
+</div>
