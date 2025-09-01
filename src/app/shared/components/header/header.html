@@ -12,7 +12,8 @@
     @if(authService.getIsLoggedIn())
     {
     <div class="buttons-container">
-      <button
+      <button matButton class="primary" [routerLink]="'/profile'">PROFILE</button>
+      <!-- <button
         matButton
         class="primary"
         [routerLink]="
@@ -20,7 +21,7 @@
         "
       >
         MENU
-      </button>
+      </button> -->
       <button matButton class="accent" (click)="authService.logout()">
         CERRAR SESIÓN
       </button>

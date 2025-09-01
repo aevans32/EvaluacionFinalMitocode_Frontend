@@ -17,6 +17,8 @@ export class Auth {
     private role = signal('');
     private email = signal('');
     private name = signal('');
+    private userId = signal('');
+    private dni = signal('');
 
     private isLoggedIn = signal(false);
 
@@ -28,6 +30,8 @@ export class Auth {
     getName() { return this.name(); }
     getIsLoggedIn() { return this.isLoggedIn(); }
     getTokenExpiration() { return this.tokenExpiration(); }
+    getUserId() { return this.userId() };
+    getDni() { return this.dni() };
 
     login(email: string, password: string) {
         return this.http.post<LoginApiResponse>(this.baseUrl + 'Clientes/Login', {
@@ -66,6 +70,8 @@ export class Auth {
         this.name.set(
             jwtDecoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
         );
+        this.userId.set(jwtDecoded['sub'] ?? '');
+        this.dni.set(jwtDecoded['dni'] ?? '');
 
         this.isLoggedIn.set(true);
     }
@@ -75,6 +81,8 @@ export class Auth {
         this.name.set('');
         this.email.set('');
         this.role.set('');
+        this.dni.set('');
+        this.userId.set('');
         this.tokenExpiration.set(new Date());
         this.isLoggedIn.set(false);
 

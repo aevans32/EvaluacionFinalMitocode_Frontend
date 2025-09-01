@@ -1,0 +1,17 @@
+<div class="page-container">
+    <app-header></app-header>
+    <div class="content-container">
+        @if (isLoggedIn) 
+        {
+            <p>user-profile DNI: {{ dni }}</p>
+        }
+        @else 
+        {
+            <p>Por favor haga click en login.</p>
+        }
+        
+    </div>
+    <app-footer></app-footer>
+</div>
+
+

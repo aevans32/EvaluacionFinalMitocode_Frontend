@@ -1,6 +1,6 @@
 .container {
     width: 220px;
-    height: 360px;
+    height: 400px;
     background-color: var(--secondary-color);
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
     }
 
     & .middle {
-        height: 200px;
+        height: 250px;
 
         & img {
             width: 100%;
