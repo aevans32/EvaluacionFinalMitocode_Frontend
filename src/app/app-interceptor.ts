@@ -46,9 +46,14 @@ export const tokenExpiredInterceptor: HttpInterceptorFn = (req, next) => {
  */
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     const token = localStorage.getItem('token');
-    return token
-        ? next(req.clone({ headers: req.headers.set('Authorization', 'Bearer' + token) }))
-        : next(req);
+    if (token) {
+        return next(
+            req.clone({
+                headers: req.headers.set('Authorization', 'Bearer ' + token),
+            })
+        );
+    }
+    return next(req);
 };
 
 /**

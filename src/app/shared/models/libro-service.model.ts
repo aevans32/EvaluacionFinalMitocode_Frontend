@@ -5,3 +5,4 @@ export interface HomeApiResponse {
   success: boolean;
   errorMessage: string | null;
 }
+

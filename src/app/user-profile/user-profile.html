@@ -3,13 +3,46 @@
     <div class="content-container">
         @if (isLoggedIn) 
         {
-            <p>user-profile DNI: {{ dni }}</p>
+            <div class="profile-wrapper">
+                <!-- Columna izquierda -->
+                 <div class="profile-section">
+                    <div class="avatar">
+                        <img [src]="profileImageUrl || './images/blank_user.jpg'" alt="Foto de Perfil" />
+                    </div>
+                    <div class="user-info">
+                        <h2 class="user-name">{{ name }}</h2>
+                        <p class="user-role">Cliente</p>
+                        <p class="user-dni">DNI: {{ dni }}</p>
+                    </div>
+                 </div>
+                 <!-- Columna derecha -->
+                 <div class="details-section">
+                    <h3>Libros rentados</h3>
+                    <div class="rented-books">
+                        @if (alquilados().length > 0) {
+                            @for (libro of alquilados(); track libro.pedidoId) {
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        <img [src]="'./images/generic-concert-poster.jpg'" alt="Portada de libro">
+                                    </div>
+                                    <div class="book-details">
+                                        <h4>{{ libro.titulo }}</h4>
+                                        <p>Pedido: {{ libro.pedidoId }}</p>
+                                        <p>Fecha: {{ libro.fechaPedido | date:'mediumDate' }}</p>
+                                        <p>Subtotal: {{ libro.subTotal | currency:'PEN' }}</p>
+                                    </div>
+                                </div>
+                            }
+                        } @else {
+                            <p>No tienes libros rentados actualmente.</p>
+                        }
+                    </div>
+                 </div>
+            </div>
         }
-        @else 
-        {
-            <p>Por favor haga click en login.</p>
+        @else {
+            <p class="login-message">Por favor haga click en login.</p>
         }
-        
     </div>
     <app-footer></app-footer>
 </div>
