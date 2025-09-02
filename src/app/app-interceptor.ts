@@ -43,6 +43,18 @@ export const tokenExpiredInterceptor: HttpInterceptorFn = (req, next) => {
  * Adjunta el JWT en el header Authorization de cada request,
  * si existe en localStorage.
  * - Formato: "Authorization: Bearer <token>"
+ * La cabecera Authorization sigue una sintaxis definida en el RFC 6750
+ * (Bearer Token Usage). La forma correcta es:
+ *  Authorization: Bearer <token>
+ * Donde:
+ * Bearer es el esquema de autenticación.
+ * Luego debe venir un espacio en blanco.
+ * Después, el valor del access token.
+ * 
+ * El servidor recibe el header como un esquema llamado Bearer<token> y sin credenciales.
+ * Los frameworks de backend (como ASP.NET Core, Spring, Express con passport-jwt, etc.) buscan específicamente el esquema Bearer seguido de un espacio.
+ * Como no coincide, ignoran el header y asumen que no enviaste token.
+ * Resultado: 401 Unauthorized.
  */
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     const token = localStorage.getItem('token');
