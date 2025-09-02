@@ -11,6 +11,51 @@
             gap: 2rem;
             padding: 2rem;
         }
+
+        & .profile-section {
+            flex: 0 0 250px;
+            text-align: center;
+
+            & .avatar img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            & .user-info {
+                margin-top: 1rem;
+            }
+        }
+
+        & .details-section {
+            flex: 1;
+
+            & .rented-books {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                & .book-card {
+                    display: flex;
+                    gap: 1rem;
+                    padding: 1rem;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+
+                    & .book-cover img{
+                        width: 130px;
+                        height: 130px;
+                        object-fit: cover;
+                        border-radius: 4px;
+                    }
+
+                    & .book-details h4{
+                        margin: 0 0 0.5rem 0;
+                    }
+                }
+            }
+        }
     }
 
 }
