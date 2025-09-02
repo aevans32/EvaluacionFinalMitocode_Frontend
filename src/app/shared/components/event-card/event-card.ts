@@ -11,7 +11,6 @@ export class EventCard {
   @Input({  required: true }) data!: Libro;
 
   onImageError() {
-    //TODO: cambiar por imagen genérica
-    this.data.imageUrl = 'images/generic-concert-poster.jpg';
+    this.data.imageUrl = 'images/generic-book-cover.jpg';
   }
 }

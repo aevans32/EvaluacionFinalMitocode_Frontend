@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { HomeApiResponse } from "../models/libro-service.model";
 import { map } from "rxjs";
 import { LibroAlquiladoResponse } from "../models/profile.model";
+import { Libro } from "../models/libro.model";
 
 @Injectable({
     providedIn: 'root'
@@ -12,10 +13,15 @@ export class LibrosService {
     private baseUrl = environment.baseUrl;
     private http = inject(HttpClient);
 
-    getData() {
+    getData_Old() {
     return this.http
-      .get<HomeApiResponse>(this.baseUrl + 'Libros/title')  // ajusta el endpoint si corresponde
+      .get<HomeApiResponse>(this.baseUrl + 'Libros/title')
       .pipe(map(res => res.data ?? []));        // ← devolvemos solo el array
+    }
+
+    getData() {
+      return this.http.get<Libro[]>(this.baseUrl + 'Libros/title');
+
     }
 
     getAlquiladosPorDni(dni: string) {

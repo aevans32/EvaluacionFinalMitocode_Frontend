@@ -6,6 +6,7 @@ export interface LibroAlquiladoResponse {
   libroId: string;
   titulo: string;
   isbn: string;
+  imageUrl: string;
   cantidad: number;
   precioUnitario: number;
   subTotal: number;

@@ -23,7 +23,7 @@
                             @for (libro of alquilados(); track libro.pedidoId) {
                                 <div class="book-card">
                                     <div class="book-cover">
-                                        <img [src]="'./images/generic-concert-poster.jpg'" alt="Portada de libro">
+                                        <img [src]="libro.imageUrl || './images/generic-book-cover.jpg'" alt="Portada de libro">
                                     </div>
                                     <div class="book-details">
                                         <h4>{{ libro.titulo }}</h4>
