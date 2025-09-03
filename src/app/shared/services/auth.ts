@@ -3,6 +3,7 @@ import { Injectable, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { jwtDecode } from 'jwt-decode';
 import { ChangePasswordRequestBody, LoginApiResponse, RegisterRequestBody } from "../models/auth.model";
+import { NotificationsService } from "angular2-notifications";
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +33,8 @@ export class Auth {
     getTokenExpiration() { return this.tokenExpiration(); }
     getUserId() { return this.userId() };
     getDni() { return this.dni() };
+
+    notifications = inject(NotificationsService);
 
     login(email: string, password: string) {
         return this.http.post<LoginApiResponse>(this.baseUrl + 'Clientes/Login', {
@@ -85,6 +88,7 @@ export class Auth {
         this.userId.set('');
         this.tokenExpiration.set(new Date());
         this.isLoggedIn.set(false);
+        this.notifications.success('Logout exitoso', 'Gracias');
 
         if (tokenExpired) {
             // TODO: activar notificaciones
