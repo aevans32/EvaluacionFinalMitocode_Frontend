@@ -24,7 +24,15 @@ export class Auth {
     private isLoggedIn = signal(false);
 
     private router = inject(Router);
-    // notifications = inject(NotificationsService);
+
+    // Claims
+    private readonly ROLE_CLAIM =
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+    private readonly EMAIL_CLAIM =
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress';
+    private readonly NAME_CLAIM =
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name';
+
 
     getRole() { return this.role(); }
     getEmail() { return this.email(); }
@@ -34,7 +42,23 @@ export class Auth {
     getUserId() { return this.userId() };
     getDni() { return this.dni() };
 
+    // Last decoded payload
+    private decoded: any | null = null;
+
     notifications = inject(NotificationsService);
+
+    hasRole(role: string, claimKey: string = this.ROLE_CLAIM): boolean {
+        if (!this.decoded) this.decodeToken();
+        const value = this.decoded?.[claimKey];
+        if (!value) return false;
+        return Array.isArray(value) ? value.includes(role) : value === role;
+    }
+
+    setSessionFromToken(token: string, expiration?: string) {
+        localStorage.setItem('token', token);
+        if (expiration) localStorage.setItem('tokenExpiration', expiration);
+        this.decodeToken(); // will populate signals & isLoggedIn using the token
+    }
 
     login(email: string, password: string) {
         return this.http.post<LoginApiResponse>(this.baseUrl + 'Clientes/Login', {
@@ -63,6 +87,7 @@ export class Auth {
         this.tokenExpiration.set(new Date(tokenExpiration));
 
         const jwtDecoded = jwtDecode<any>(token);
+        this.decoded = jwtDecoded;
 
         this.role.set(
             jwtDecoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
@@ -88,15 +113,14 @@ export class Auth {
         this.userId.set('');
         this.tokenExpiration.set(new Date());
         this.isLoggedIn.set(false);
-        this.notifications.success('Logout exitoso', 'Gracias');
+        
 
         if (tokenExpired) {
-            // TODO: activar notificaciones
-            // this.notifications.warn('Token Expirado. Por favor inicia sesión');
+            this.notifications.warn('Token Expirado. Por favor inicia sesión');
             this.router.navigateByUrl('/login');
         }
         else {
-            // this.notifications.success('Logout exitoso', 'Vuelve pronto');
+            this.notifications.success('Logout exitoso', 'Vuelve pronto');
             this.router.navigateByUrl('/');
         }
 

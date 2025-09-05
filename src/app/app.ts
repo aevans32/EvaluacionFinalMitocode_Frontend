@@ -17,6 +17,10 @@ export class App {
     position: ['top', 'right'],
     timeOut: 3000
   };
-  protected readonly title = signal('mitocode_final');
+
+  constructor() {
+    this.authService.decodeToken();
+  }
+  // protected readonly title = signal('mitocode_final');
 
 }
