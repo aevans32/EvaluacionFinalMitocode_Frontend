@@ -18,7 +18,7 @@
                             <th>Autor</th>
                             <th>ISBN</th>
                             <th class="qty-col">Total</th>
-                            <th class="actions-col"></th>
+                            <th class="actions-col">Acciones</th>
                         </tr>
                     </thead>
 
@@ -38,10 +38,10 @@
                                 <td>{{ row.isbn }}</td>
                                 <td class="qty-col">{{ getCountFor(row) }}</td>
                                 <td class="actions-col">
-                                    <button matButton [matMenuTriggerFor]="beforeMenu">Before</button>
+                                    <button matButton [matMenuTriggerFor]="beforeMenu">Acciones</button>
                                     <mat-menu #beforeMenu="matMenu" xPosition="before">
-                                    <button mat-menu-item>Item 1</button>
-                                    <button mat-menu-item>Item 2</button>
+                                    <button mat-menu-item>Editar</button>
+                                    <button mat-menu-item>Eliminar</button>
                                     </mat-menu>
                                 </td>
                             </tr>
