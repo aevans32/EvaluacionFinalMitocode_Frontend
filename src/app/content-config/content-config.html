@@ -1,7 +1,55 @@
 <div class="page-container">
     <app-header></app-header>
     <div class="content-container">
-        <p>This is the content config!</p>
+        <h2>Configuración de Contenido</h2>
+        @if (loading()) {
+            <div class="status">Cargando libros...</div>
+        }
+        @if (error() && !loading()) {
+            <div class="status error">{{ error() }}</div>
+        }
+        @if (!loading() && !error()) {
+            <div class="table-wrapper">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>ISBN</th>
+                            <th class="qty-col">Total</th>
+                            <th class="actions-col"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @for (row of libros(); track row.id) {
+                            <tr (click)="$event.stopPropagation()">
+                                <td class="thumb-col">
+                                    <img 
+                                        [src]="row.imageUrl || './images/generic-book-cover.jpg'" 
+                                        alt="Portada"
+                                        class="thumb"
+                                        loading="lazy"
+                                    />
+                                </td>
+                                <td>{{ row.titulo }}</td>
+                                <td>{{ row.autor }}</td>
+                                <td>{{ row.isbn }}</td>
+                                <td class="qty-col">{{ getCountFor(row) }}</td>
+                                <td class="actions-col">
+                                    <button matButton [matMenuTriggerFor]="beforeMenu">Before</button>
+                                    <mat-menu #beforeMenu="matMenu" xPosition="before">
+                                    <button mat-menu-item>Item 1</button>
+                                    <button mat-menu-item>Item 2</button>
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>    
+        }
     </div>
     <app-footer></app-footer>
 </div>

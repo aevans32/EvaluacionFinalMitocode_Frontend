@@ -13,15 +13,8 @@ export class LibrosService {
     private baseUrl = environment.baseUrl;
     private http = inject(HttpClient);
 
-    getData_Old() {
-    return this.http
-      .get<HomeApiResponse>(this.baseUrl + 'Libros/title')
-      .pipe(map(res => res.data ?? []));        // ← devolvemos solo el array
-    }
-
     getData() {
       return this.http.get<Libro[]>(this.baseUrl + 'Libros/title');
-
     }
 
     getAlquiladosPorDni(dni: string) {

@@ -1,0 +1,141 @@
+/* Layout */
+.page-container {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #fafafa;
+}
+
+.content-container {
+  padding: 1rem 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-container h2 {
+  margin: 0 0 0.75rem 0;
+  font-weight: 600;
+}
+
+/* Status banners */
+.status {
+  padding: .75rem 1rem;
+  border-radius: .5rem;
+  background: #f2f2f2;
+  margin: .75rem 0 1rem;
+  border: 1px solid #e8e8e8;
+}
+.status.error {
+  background: #ffecec;
+  border-color: #ffc9c9;
+  color: #a30000;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: .75rem;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+
+/* Table */
+.books-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+}
+
+.books-table thead tr {
+  background: #f9f9f9;
+}
+
+.books-table th,
+.books-table td {
+  padding: .75rem .75rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.books-table tbody tr:hover {
+  background: #fafcff;
+}
+
+/* Image column */
+.thumb-col {
+  width: 56px;
+}
+.thumb {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: .25rem;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+}
+
+/* Quantity column */
+.qty-col {
+  text-align: center;
+  width: 80px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Actions / menu */
+.actions-col {
+  width: 60px;
+  position: relative;
+}
+
+.menu-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: .5rem;
+  padding: .25rem .5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.menu-btn:hover {
+  background: #f6f6f6;
+}
+.menu-btn:active {
+  transform: translateY(1px);
+}
+
+.menu {
+  position: absolute;
+  right: .5rem;
+  top: 2.25rem;
+  list-style: none;
+  margin: 0;
+  padding: .25rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: .5rem;
+  min-width: 160px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  z-index: 10;
+}
+.menu li { margin: 0; }
+.menu li button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: .5rem .75rem;
+  cursor: pointer;
+  font: inherit;
+}
+.menu li button:hover {
+  background: #f6f6f6;
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .content-container { padding: .75rem; }
+  .books-table th, .books-table td { padding: .6rem; }
+  .thumb { width: 32px; height: 48px; }
+}
