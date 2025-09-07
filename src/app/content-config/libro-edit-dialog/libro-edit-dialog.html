@@ -1,11 +1,11 @@
 <h2 mat-dialog-title>{{ data.id ? 'Editar libro' : 'Nuevo libro' }}</h2>
-
+<br>
 <mat-dialog-content>
     <form class="form-grid" [formGroup]="form">
 
         <mat-form-field appearance="outline">
             <mat-label>Titulo</mat-label>
-            <input matInput formControlName="titulo" />
+            <input matInput formControlName="titulo" style="color:#000" />
             @if (form.controls.titulo.hasError('required')) {
                 <mat-error>Requerido</mat-error>
             }
@@ -16,7 +16,7 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Autor</mat-label>
-            <input matInput formControlName="autor" />
+            <input matInput formControlName="autor" style="color:#000" />
             @if (form.controls.autor.hasError('required')) {
                 <mat-error>Requerido</mat-error>
             }
@@ -25,8 +25,78 @@
             }
         </mat-form-field>
 
-        mat-
+        <mat-form-field appearance="outline">
+            <mat-label>ISBN</mat-label>
+            <input matInput formControlName="isbn" style="color:#000" />
+            @if (form.controls.autor.hasError('required')) {
+                <mat-error>Requerido</mat-error>
+            }
+            @else if (form.controls.autor.hasError('maxLength')) {
+                <mat-error>Max. 50 caracteres</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Precio unitario</mat-label>
+            <input matInput formControlName="unitPrice" type="number" style="color:#000" />
+            @if (form.controls.autor.hasError('min')) {
+                <mat-error>Minimo 0</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Genero (ID)</mat-label>
+            <input matInput formControlName="genreId" type="number" style="color:#000" />
+            @if (form.controls.autor.hasError('min')) {
+                <mat-error>Minimo 0</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Descripcion</mat-label>
+            <textarea matInput rows="3" formControlName="description" style="color:#000"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Descripcion extendida</mat-label>
+            <textarea matInput rows="3" formControlName="extendedDescription" style="color:#000"></textarea>
+            <!-- <input matInput rows="5" formControlName="extendedDescription" style="color:#000" /> -->
+        </mat-form-field>
+
+        <div class="image-row span-2">
+            <div class="image-picker">
+                <label for="image">Portada</label>
+                <input id="image" type="file" accept="image/*" (change)="onFileSelected($event)" />
+            </div>
+
+            <div class="preview">
+                @if (form.value.imageUrl) {
+                    <img [src]="form.value.imageUrl!" alt="Portada actual" />
+                    <br>
+                    <small>Portada actual</small>
+                }
+            </div>
+        </div>
+
+        <mat-checkbox formControlName="disponible">Disponible</mat-checkbox>
 
     </form>
 
+    <div class="error">
+        @if (errorMsg()) {
+            {{ errorMsg() }}
+        }
+    </div>
 </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()" [disabled]="isSaving()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="accept()" [disabled]="isSaving()">
+        @if (!isSaving()) {
+            Guardar
+        } @else {
+            <mat-progress-spinner mode="indeterminate" diameter="18"></mat-progress-spinner>
+        }
+    </button>
+</mat-dialog-actions>
+

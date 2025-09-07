@@ -65,6 +65,50 @@ export class ContentConfig {
     });
   }
 
+  onDelete(row: Libro) {
+    const ok = confirm(`Eliminar el libro "${row.titulo}" ?`);
+    if (!ok) return;
+
+    this.librosService.deleteLibro(row.id).subscribe({
+      next: () => {
+        this.snack.open('Libro eliminado', 'OK', { duration: 2500 });
+        this.fetchLibros();
+      },
+      error: (e) => {
+        console.error(e);
+        this.snack.open('No se pudo eliminar el libro', 'OK', { duration: 3000 });
+      }
+    });
+  }
+
+  onNewBook() {
+    const empty: Partial<Libro> = {
+      id: '',
+      titulo: '',
+      autor: '',
+      description: '',
+      extendedDescription: '',
+      unitPrice: 0,
+      genreId: 0,
+      imageUrl: null,
+      isbn: '',
+      disponible: true,
+      activeStatus: true
+    } as Libro;
+
+    const ref = this.dialog.open(LibroEditDialog, {
+      width: '720px',
+      data: empty
+    });
+
+    ref.afterClosed().subscribe(res => {
+      if (res === 'refresh') {
+        this.fetchLibros();
+        this.snack.open('Libro creado', 'OK', { duration:2500 });
+      }
+    });
+  }
+
 
   
 

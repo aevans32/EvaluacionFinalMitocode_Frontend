@@ -6,11 +6,21 @@ import { LibrosService } from '../../shared/services/libros-service';
 import { CreateLibroDto } from '../../shared/models/libro-create-dto.model';
 import { MatInputModule } from "@angular/material/input";
 import { MatDialogTitle, MatDialogContent } from '@angular/material/dialog';
+import { MatButton } from "@angular/material/button";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-libro-edit-dialog',
   standalone: true,
-  imports: [MatInputModule, MatDialogActions, MatDialogTitle, MatDialogContent, ReactiveFormsModule],
+  imports: [MatInputModule, 
+            MatDialogActions, 
+            MatDialogTitle, 
+            MatDialogContent, 
+            ReactiveFormsModule, 
+            MatButton, 
+            MatCheckboxModule,
+            MatProgressSpinnerModule],
   templateUrl: './libro-edit-dialog.html',
   styleUrl: './libro-edit-dialog.css'
 })
@@ -69,6 +79,8 @@ export class LibroEditDialog {
     const obs$ = hasId
       ? this.librosService.updateLibro(this.data.id, dto)
       : this.librosService.createNewLibro(dto);
+
+    console.log(`DTO image: ${dto.image}`);
 
     obs$.subscribe({
       next: () => {
