@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>{{ data.id ? 'Editar libro' : 'Nuevo libro' }}</h2>
+
+<mat-dialog-content>
+    <form class="form-grid" [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>Titulo</mat-label>
+            <input matInput formControlName="titulo" />
+            @if (form.controls.titulo.hasError('required')) {
+                <mat-error>Requerido</mat-error>
+            }
+            @else if (form.controls.titulo.hasError('maxlength')) {
+                <mat-error>Max. 200 caracteres</mat-error>
+            }
+            
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>

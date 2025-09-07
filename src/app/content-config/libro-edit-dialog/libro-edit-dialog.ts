@@ -1,15 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
 import { Libro } from '../../shared/models/libro.model';
 import { LibrosService } from '../../shared/services/libros-service';
 import { CreateLibroDto } from '../../shared/models/libro-create-dto.model';
 import { MatInputModule } from "@angular/material/input";
+import { MatDialogTitle, MatDialogContent } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-libro-edit-dialog',
   standalone: true,
-  imports: [MatInputModule, MatDialogActions],
+  imports: [MatInputModule, MatDialogActions, MatDialogTitle, MatDialogContent, ReactiveFormsModule],
   templateUrl: './libro-edit-dialog.html',
   styleUrl: './libro-edit-dialog.css'
 })
@@ -21,6 +22,7 @@ export class LibroEditDialog {
 
   isSaving = signal(false);
   errorMsg = signal<string | null>(null);
+  imageFile: File | null = null;
 
   form = new FormGroup({
     titulo:             new FormControl(this.data.titulo, { nonNullable: true, validators: [Validators.required, Validators.maxLength(200)] }),
@@ -34,8 +36,6 @@ export class LibroEditDialog {
     disponible:         new FormControl(this.data.disponible, { nonNullable: true })
   });
 
-  imageFile: File | null = null;
-
   onFileSelected(ev: Event) {
     const input = ev.target as HTMLInputElement;
     this.imageFile = input.files && input.files.length ? input.files[0] : null;
@@ -48,35 +48,39 @@ export class LibroEditDialog {
       return;
     }
 
-    const v = this.form.getRawValue() as Libro;
-    const isCreate = !v.id || v.id.trim().length === 0;
+    this.errorMsg.set(null);
+    this.isSaving.set(true);
 
-    if (isCreate) {
-      const dto = {
-        titulo: v.titulo,
-        autor: v.autor,
-        description: v.description,
-        extendedDescription: v.extendedDescription,
-        unitPrice: v.unitPrice,
-        genreId: v.genreId,
-        image: this.imageFile,          // <-- file goes here
-        isbn: v.isbn,
-        disponible: v.disponible
-      } as CreateLibroDto;
+    const raw = this.form.getRawValue();
+    const dto: CreateLibroDto = {
+      titulo:               raw.titulo!,
+      autor:                raw.autor!,
+      description:          raw.description ?? '',
+      extendedDescription:  raw.extendedDescription ?? '',
+      unitPrice:            raw.unitPrice ?? 0,
+      genreId:              raw.genreId ?? 0,
+      image:                this.imageFile ?? undefined,
+      isbn:                 raw.isbn!,
+      disponible:           !!raw.disponible
+    };
 
-      this.isSaving.set(true);
-      this.librosService.createNewLibro(dto).subscribe({
-        next: () => { 
-          this.isSaving.set(false);
-          this.dialogRef.close('refresh');
-         },
-        error: (e) => {
-          this.isSaving.set(false);
-          this.errorMsg.set('No se pudo guardar el libro.');
-        }
-      });
-      return;
-    }
+    const hasId = !!this.data?.id && this.data.id.trim().length > 0;
+
+    const obs$ = hasId
+      ? this.librosService.updateLibro(this.data.id, dto)
+      : this.librosService.createNewLibro(dto);
+
+    obs$.subscribe({
+      next: () => {
+        this.isSaving.set(false);
+        this.dialogRef.close('refresh');
+      },
+      error: (e) => {
+        console.error(e);
+        this.isSaving.set(false);
+        this.errorMsg.set('No se pudo guardar el libro.');
+      }
+    });
   }
 
   // Cancel button

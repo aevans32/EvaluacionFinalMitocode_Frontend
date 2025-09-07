@@ -53,6 +53,30 @@ export class LibrosService {
         }));
     }
 
+    updateLibro(id: string, dto: CreateLibroDto) {
+      const fd = this.toLibroFormData(dto);
+
+      return this.http
+        .put<ApiResponse<string>>(`${this.baseUrl}Libros/${encodeURIComponent(id)}`, fd)
+        .pipe(
+          map(r => {
+            console.log('Respuesta al actualizar el libro:', r);
+            return r.data;
+          })
+        );
+    }
+
+    deleteLibro(id: string) {
+      return this.http
+        .delete<ApiResponse<string>>(`${this.baseUrl}Libros/${encodeURIComponent(id)}`)
+        .pipe(
+          map(r => {
+            console.log('Respuesta al eliminar libro:', r);
+            return r.data;
+          })
+        );
+    }
+
     private toLibroFormData(dto: CreateLibroDto): FormData {
       const fd = new FormData();
       fd.append('Titulo', this.toStr(dto.titulo));

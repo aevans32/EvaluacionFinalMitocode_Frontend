@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LibroEditDialog } from './libro-edit-dialog/libro-edit-dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-content-config',
@@ -17,56 +18,55 @@ import { LibroEditDialog } from './libro-edit-dialog/libro-edit-dialog';
 })
 export class ContentConfig {
 
-  private libroService = inject(LibrosService);
+  private librosService = inject(LibrosService);
+  private dialog = inject(MatDialog);
+  private snack = inject(MatSnackBar);
 
+  libros = signal<Libro[]>([]);
+  loading = signal(false);
   error = signal<string | null>(null);
 
-  libros: WritableSignal<Libro[]> = signal([]);
   initialLibros: Libro[] = [];
-
   hasFetched = signal(false);
-
-  loading = computed(() => !this.hasFetched() && this.error() === null);
-
   menuOpenForId = signal<string | null>(null);
 
-
-  // For modal
-  private dialog = inject(MatDialog);
-
-  openEditDialog(row: Libro) {
-    const ref = this.dialog.open(LibroEditDialog, {
-      width: '680px',
-      data: row,                                  // Passes the current book
-      autoFocus: false
-    });
-
-    ref.afterClosed().subscribe((updated: Libro | null) => {
-      if (!updated) return;       // Cancelado
-
-      // Actualizar local y luego llamar al backend
-      const next = this.libros().map(b => (b.id === updated.id ? updated : b));
-      this.libros.set(next);
-      console.log('Libro actualizado:', updated);
-      // TODO: call this.libroService.updateLibro(updated).subscribe(...)
-    });
+  ngOnInit(): void {
+    this.fetchLibros();
   }
 
-
-  ngOnInit(): void {
-    this.libroService.getData().subscribe({
-      next: (items: Libro[]) => {
-        this.initialLibros = items;
-        this.libros.set(items);
-        this.hasFetched.set(true);
+  fetchLibros() {
+    this.loading.set(true);
+    this.error.set(null);
+    this.librosService.getData().subscribe({
+      next: (rows) => {
+        this.libros.set(rows ?? []);
+        this.loading.set(false);
       },
-      error: (err) => {
-        console.error(err);
+      error: (e) => {
+        console.error(e);
         this.error.set('No se pudo cargar la lista de libros.');
-        this.hasFetched.set(true);
+        this.loading.set(false);
       }
     });
   }
+
+  onEdit(row: Libro) {
+    const ref = this.dialog.open(LibroEditDialog, {
+      width: '720px',
+      data: row,                                  // Passes the current book
+      // autoFocus: false
+    });
+
+    ref.afterClosed().subscribe(res => {
+      if (res === 'refresh') {
+        this.fetchLibros();
+        this.snack.open('Libro actualizado', 'OK', { duration: 2500 });
+      }
+    });
+  }
+
+
+  
 
   private makeKey(b: Libro): string {
     return (b.isbn ?? '').trim();

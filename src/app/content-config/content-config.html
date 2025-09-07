@@ -40,7 +40,7 @@
                                 <td class="actions-col">
                                     <button matButton [matMenuTriggerFor]="beforeMenu">Acciones</button>
                                     <mat-menu #beforeMenu="matMenu" xPosition="before">
-                                    <button mat-menu-item>Editar</button>
+                                    <button mat-menu-item (click)="onEdit(row)">Editar</button>
                                     <button mat-menu-item>Eliminar</button>
                                     </mat-menu>
                                 </td>

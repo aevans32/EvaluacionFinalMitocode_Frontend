@@ -66,4 +66,35 @@ describe('LibrosService', () => {
 
     expect(returnedId).toBe('LBR0005');
   });
+
+
+  it('should PUT multipart/form-data to /Libros/{id}', () => {
+    const fakeFile = new File([new Blob(['img-bytes'])], 'ramen.jpg', { type: 'image/jpeg' });
+    const dto = {
+        titulo: 'Editado',
+        autor: 'Nuevo Autor',
+        description: 'desc editada',
+        extendedDescription: 'ext editada',
+        unitPrice: 29.99,
+        genreId: 4,
+        image: fakeFile,
+        isbn: '1234567890',
+        disponible: false,
+    };
+
+    let returnedId: string | undefined;
+    service.updateLibro('LBR0005', dto).subscribe(id => (returnedId = id));
+
+    const req = httpMock.expectOne(environment.baseUrl + 'Libros/LBR0005');
+    expect(req.request.method).toBe('PUT');
+
+    const body = req.request.body as FormData;
+    expect(body.get('Titulo')).toBe('Editado');
+    expect(body.get('Autor')).toBe('Nuevo Autor');
+
+    req.flush({ data: 'LBR0005', success: true, errorMessage: null });
+
+    expect(returnedId).toBe('LBR0005');
+    });
+
 });
