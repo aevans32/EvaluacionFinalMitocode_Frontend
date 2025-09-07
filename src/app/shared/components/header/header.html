@@ -5,23 +5,18 @@
       <h1>TIENDA DE LIBROS</h1>
     </div>
     <div class="search-container">
-      <!-- <input type="text" placeholder="Buscar..." (input)="onInput($event)" /> -->
+      
     </div>
     <button matButton class="primary" [routerLink]="'/'">HOME</button>
 
     @if(authService.getIsLoggedIn())
     {
     <div class="buttons-container">
-      <button matButton class="primary" [routerLink]="'/profile'">PROFILE</button>
-      <!-- <button
-        matButton
-        class="primary"
-        [routerLink]="
-          authService.getRole() === 'Administrator' ? '/admin' : '/customer'
-        "
-      >
-        MENU
-      </button> -->
+      @if (authService.hasRole('Administrator')) {
+        <button matButton class="primary" [routerLink]="'/content-config'">CMS</button>
+      } @else {
+        <button matButton class="primary" [routerLink]="'/profile'">PROFILE</button>
+      }
       <button matButton class="accent" (click)="authService.logout()">
         CERRAR SESIÓN
       </button>
@@ -30,7 +25,7 @@
     @else 
     {
     <div class="buttons-container">
-      <!-- Botones de ingresar y registrate en caso de no estar loggin in -->
+      <!-- Botones de ingresar y registrate en caso de no estar logged in -->
       <button matButton class="primary" routerLink="/login">INGRESAR</button>
       <button matButton class="accent" routerLink="/register">REGÍSTRATE</button>
     </div>
