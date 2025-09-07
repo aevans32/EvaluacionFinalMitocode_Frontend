@@ -25,33 +25,6 @@ export class Login {
 
   notifications = inject(NotificationsService);
 
-  // login() {
-  //   const email = this.loginForm.controls.email.value!;
-  //   const password = this.loginForm.controls.password.value!;
-
-  //   this.authService.login(email, password).subscribe({
-  //     next: (res: any) => {
-  //       // works whether unwrapData is on or off
-  //       const token = res?.token ?? res?.data?.token;
-  //       const expiration = res?.expiration ?? res?.data?.expiration;
-
-  //       if (!token) {
-  //         this.notifications.error('Login fallido', 'Respuesta inválida del servidor');
-  //         return;
-  //       }
-
-  //       localStorage.setItem('token', token);
-  //       localStorage.setItem('tokenExpiration', expiration ?? '');
-  //       this.authService.decodeToken();
-  //       this.notifications.success('Login exitoso', 'Bienvenido');
-  //       this.router.navigateByUrl('/');
-  //     },
-  //     error: () => {
-  //       this.notifications.error('Login fallido', 'Credenciales inválidas o error de red');
-  //     }
-  //   });
-  // }
-
   login() {
     const email = this.loginForm.controls.email.value!;
     const password = this.loginForm.controls.password.value!;

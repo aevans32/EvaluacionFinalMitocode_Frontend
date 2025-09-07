@@ -22,13 +22,14 @@
   "dependencies": {
     "@angular/animations": "^20.2.2",
     "@angular/cdk": "^20.2.1",
-    "@angular/common": "^20.1.0",
-    "@angular/compiler": "^20.1.0",
-    "@angular/core": "^20.1.0",
-    "@angular/forms": "^20.1.0",
+    "@angular/common": "^20.2.2",
+    "@angular/compiler": "^20.2.2",
+    "@angular/core": "^20.2.2",
+    "@angular/forms": "^20.2.2",
     "@angular/material": "^20.2.1",
-    "@angular/platform-browser": "^20.1.0",
-    "@angular/router": "^20.1.0",
+    "@angular/platform-browser": "^20.2.2",
+    "@angular/platform-browser-dynamic": "^20.2.2",
+    "@angular/router": "^20.2.2",
     "angular2-notifications": "^16.0.1",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
@@ -45,6 +46,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "zone.js": "^0.15.1"
   }
 }

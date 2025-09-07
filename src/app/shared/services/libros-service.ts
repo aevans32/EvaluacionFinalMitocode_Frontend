@@ -5,6 +5,8 @@ import { HomeApiResponse } from "../models/libro-service.model";
 import { map } from "rxjs";
 import { LibroAlquiladoResponse } from "../models/profile.model";
 import { Libro } from "../models/libro.model";
+import { CreateLibroDto } from "../models/libro-create-dto.model";
+import { ApiResponse } from "../models/apiResponse.model";
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +14,11 @@ import { Libro } from "../models/libro.model";
 export class LibrosService {
     private baseUrl = environment.baseUrl;
     private http = inject(HttpClient);
+    
+    private toStr = (v: unknown) => (v === undefined || v === null ? '' : String(v));
+    private toNumStr = (v: number | undefined | null) => Number.isFinite(v as number) ? String(v) : '0';
+    private toBoolStr = (v: boolean | undefined | null) => v ? 'true' : 'false';
+
 
     getData() {
       return this.http.get<Libro[]>(this.baseUrl + 'Libros/title');
@@ -34,5 +41,29 @@ export class LibrosService {
           cantidad: Number(i.cantidad),
         })))
       );
+    }
+
+    createNewLibro(dto: CreateLibroDto) {
+      const fd = this.toLibroFormData(dto);
+      return this.http
+        .post<ApiResponse<string>>(`${this.baseUrl}Libros`, fd)
+        .pipe(map(r => {
+          console.log('Respuesta del backend:', r);
+          return r.data;
+        }));
+    }
+
+    private toLibroFormData(dto: CreateLibroDto): FormData {
+      const fd = new FormData();
+      fd.append('Titulo', this.toStr(dto.titulo));
+      fd.append('Autor', this.toStr(dto.autor));
+      fd.append('Description', this.toStr(dto.description));
+      fd.append('ExtendedDescription', this.toStr(dto.extendedDescription));
+      fd.append('UnitPrice', this.toNumStr(dto.unitPrice));
+      fd.append('GenreId', this.toNumStr(dto.genreId));
+      fd.append('ISBN', this.toStr(dto.isbn));
+      fd.append('Disponible', this.toBoolStr(dto.disponible));
+      if (dto.image) fd.append('Image', dto.image, dto.image.name); // preserva filename
+      return fd;
     }
 }
