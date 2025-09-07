@@ -2,6 +2,7 @@
 
 <mat-dialog-content>
     <form class="form-grid" [formGroup]="form">
+
         <mat-form-field appearance="outline">
             <mat-label>Titulo</mat-label>
             <input matInput formControlName="titulo" />
@@ -10,9 +11,21 @@
             }
             @else if (form.controls.titulo.hasError('maxlength')) {
                 <mat-error>Max. 200 caracteres</mat-error>
-            }
-            
+            }    
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Autor</mat-label>
+            <input matInput formControlName="autor" />
+            @if (form.controls.autor.hasError('required')) {
+                <mat-error>Requerido</mat-error>
+            }
+            @else if (form.controls.autor.hasError('maxLength')) {
+                <mat-error>Max. 200 caracteres</mat-error>
+            }
+        </mat-form-field>
+
+        mat-
 
     </form>
 
