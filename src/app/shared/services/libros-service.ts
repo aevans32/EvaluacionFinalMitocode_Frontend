@@ -19,11 +19,12 @@ export class LibrosService {
     private toNumStr = (v: number | undefined | null) => Number.isFinite(v as number) ? String(v) : '0';
     private toBoolStr = (v: boolean | undefined | null) => v ? 'true' : 'false';
 
-
+    // Usado en Home, obtiene todos los libros disponibles para ser rentados
     getData() {
       return this.http.get<Libro[]>(this.baseUrl + 'Libros/title');
     }
 
+    // Usado en Perfil de Cliente para ver sus libros rentados
     getAlquiladosPorDni(dni: string) {
     return this.http
       .get<LibroAlquiladoResponse[]>(
@@ -43,6 +44,7 @@ export class LibrosService {
       );
     }
 
+    // Usado en CMS
     createNewLibro(dto: CreateLibroDto) {
       const fd = this.toLibroFormData(dto);
       return this.http
@@ -53,6 +55,7 @@ export class LibrosService {
         }));
     }
 
+    // Usado en CMS
     updateLibro(id: string, dto: CreateLibroDto) {
       const fd = this.toLibroFormData(dto);
 
@@ -66,6 +69,7 @@ export class LibrosService {
         );
     }
 
+    // Usado en CMS
     deleteLibro(id: string) {
       return this.http
         .delete<ApiResponse<string>>(`${this.baseUrl}Libros/${encodeURIComponent(id)}`)
@@ -77,6 +81,19 @@ export class LibrosService {
         );
     }
 
+    // Usado para ver el detalle de un libro y rentarlo
+    getById(id: string) {
+      return this.http.get<Libro>(`${this.baseUrl}Libros/${encodeURIComponent(id)}`);
+    }
+
+    checkout(id: string) {
+      return this.http.post<{ success: boolean; errorMessage?: string }>(
+        `${this.baseUrl}Libros/checkout/${encodeURIComponent(id)}`,
+        {} //empty body, funciona solo con el id en params
+      );
+    }
+
+    // Helper para editar o crear un libro
     private toLibroFormData(dto: CreateLibroDto): FormData {
       const fd = new FormData();
       fd.append('Titulo', this.toStr(dto.titulo));
