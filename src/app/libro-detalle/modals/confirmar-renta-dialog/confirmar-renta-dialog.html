@@ -1,1 +1,8 @@
-<p>confirmar-renta-dialog works!</p>
+<h2 mat-dialog-title>Confirmar renta</h2>
+<div mat-dialog-content>
+    Estas seguro que quieres rentar el libro: <strong>{{ data.titulo }}</strong>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="close(false)">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="close(true)">Aceptar</button>
+</div>
