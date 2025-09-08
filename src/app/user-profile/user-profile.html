@@ -31,6 +31,15 @@
                                         <p>Fecha: {{ libro.fechaPedido | date:'mediumDate' }}</p>
                                         <p>Subtotal: {{ libro.subTotal | currency:'PEN' }}</p>
                                     </div>
+                                    <div class="checkin-button">
+                                        <button
+                                            mat-raised-button
+                                            color="primary"
+                                            (click)="retornar(libro)"
+                                            [disabled]="isPending(libro.libroId)">
+                                            Retornar
+                                        </button>
+                                    </div>
                                 </div>
                             }
                         } @else {

@@ -46,14 +46,14 @@ export class LibroDetalle implements OnInit{
     if (!l) return;                // si aún no cargó, sale
 
     this.dialog.open(ConfirmarRentaDialog, {
-      data: { titulo: l.titulo },  // ← usa l.titulo
+      data: { titulo: l.titulo },  
       disableClose: true
     })
     .afterClosed()
     .subscribe((ok: boolean) => {
       if (!ok) return;
 
-      this.service.checkout(l.id)  // ← usa l.id
+      this.service.checkout(l.id)  
         .subscribe({
           next: (res) => {
             if (res && (res as any).success !== false) {

@@ -86,10 +86,19 @@ export class LibrosService {
       return this.http.get<Libro>(`${this.baseUrl}Libros/${encodeURIComponent(id)}`);
     }
 
+    // Usado para rentar un libro
     checkout(id: string) {
       return this.http.post<{ success: boolean; errorMessage?: string }>(
         `${this.baseUrl}Libros/checkout/${encodeURIComponent(id)}`,
         {} //empty body, funciona solo con el id en params
+      );
+    }
+
+    // Usado para retornar un libro
+    checkin(id: string) {
+      return this.http.post<{ success: boolean; errorMessage?: string }>(
+        `${this.baseUrl}Libros/checkin/${encodeURIComponent(id)}`, 
+        {}
       );
     }
 
