@@ -1,5 +1,6 @@
 <div class="page-container">
     <app-header></app-header>
+
     <div class="title-container">
         <div class="title">
             <span>Ingresa con tu cuenta para rentar libros</span>
@@ -39,7 +40,8 @@
                 </mat-form-field>
                 <!-- Forgot password section -->
                 <div class="forgot-password">
-                    <span routerLink="/forgot-password">¿Olvidaste tu contraseña?</span>
+                    <!-- <button type="button" class="linklike" (click)="openForgotPassword()"> contraseña?</button> -->
+                    <span (click)="openForgotPassword()" routerLink="/forgot-password">¿Olvidaste tu contraseña?</span>
                 </div>
                 <!-- LOGIN button -->
                 <button
@@ -60,5 +62,6 @@
             </form>
         </div>
     </div>
+
     <app-footer></app-footer>
 </div>

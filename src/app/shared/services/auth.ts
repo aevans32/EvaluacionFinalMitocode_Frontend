@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { jwtDecode } from 'jwt-decode';
-import { ChangePasswordRequestBody, LoginApiResponse, RegisterRequestBody } from "../models/auth.model";
+import { ChangePasswordRequestBody, LoginApiResponse, RegisterRequestBody, RequestTokenBody } from "../models/auth.model";
 import { NotificationsService } from "angular2-notifications";
 
 @Injectable({
@@ -71,11 +71,14 @@ export class Auth {
     }
     
     sendTokenToResetPassword(email: string) {
-        return this.http.post(this.baseUrl + 'Clientes/RequestTokenToResetPassword', { email });
+        const body: RequestTokenBody = { email };
+        return this.http.post<{ success: boolean; errorMessage?: string }>(
+            this.baseUrl + 'Clientes/RequestTokenToResetPassword', body);
     }
 
-    resetPassword(body: ChangePasswordRequestBody) {
-        return this.http.post(this.baseUrl + 'Clientes/ChangePassword', body)
+    changePassword(body: ChangePasswordRequestBody) {
+        return this.http.post<{ success: boolean; errorMessage?: string }>(
+            this.baseUrl + 'Clientes/ChangePassword', body)
     }
 
     decodeToken(){

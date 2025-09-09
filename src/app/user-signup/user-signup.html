@@ -1,0 +1,84 @@
+<div class="page-container">
+    <app-header></app-header>
+
+    <div class="title-container">
+        <div class="title">
+            <br>
+            <span>Regístrate para crear tu usuario</span>
+            <br>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="signup-form">
+            
+            <div class="form-title-container">
+                <span>Datos de registro</span>
+            </div>
+
+            <form [formGroup]="resgisterForm" (ngSubmit)="register()">
+
+                <!-- Nombre -->
+                <mat-form-field class="firstName" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="firstName" />
+                </mat-form-field>
+
+                <!-- Apellido -->
+                <mat-form-field class="lastName" appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input type="text" matInput formControlName="lastName" />
+                </mat-form-field>
+
+                <!-- Edad -->
+                <mat-form-field class="age" appearance="outline">
+                    <mat-label>Edad</mat-label>
+                    <input type="number" matInput formControlName="age" />
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field class="email" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" />
+                </mat-form-field>
+
+                <!-- Password -->
+                <mat-form-field class="password" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password" />
+                </mat-form-field>
+
+                <!-- Confirm Password -->
+                <mat-form-field class="confirmPassword" appearance="outline">
+                    <mat-label>Confirmar Password</mat-label>
+                    <input type="password" matInput formControlName="confirmPassword" />
+                </mat-form-field>
+
+                <!-- Document Type -->
+                <mat-form-field class="documentType" appearance="outline">
+                    <mat-label>Tipo de Documento</mat-label>
+                    <input type="number" matInput formControlName="documentType" />
+                </mat-form-field>
+
+                <!-- Numero de Documento -->
+                <mat-form-field class="documentNumber" appearance="outline">
+                    <mat-label>Numero de Documento</mat-label>
+                    <input type="text" matInput formControlName="documentNumber" />
+                </mat-form-field>
+
+                <button
+    type="submit"
+    mat-flat-button
+    [disabled]="resgisterForm.invalid">
+    REGISTRARSE
+  </button>
+                <br>
+
+            </form>
+
+        </div>
+    </div>
+    <br>
+
+    <app-footer></app-footer>
+</div>
+

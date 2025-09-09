@@ -5,6 +5,7 @@ import { UserProfile } from './user-profile/user-profile';
 import { ContentConfig } from './content-config/content-config';
 import { adminGuard } from './shared/guards/admin.guard';
 import { LibroDetalle } from './libro-detalle/libro-detalle';
+import { UserSignup } from './user-signup/user-signup';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,10 @@ export const routes: Routes = [
         // User profile and checkout history
         path: 'profile',
         component: UserProfile
+    },
+    {
+        path: 'user-signup',
+        component: UserSignup
     },
     {
         // Protected admin console

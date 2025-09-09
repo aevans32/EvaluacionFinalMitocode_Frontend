@@ -10,7 +10,7 @@
     & .top {
         display: flex;
         justify-content: space-between;
-        height: 60px;
+        height: 70px;
         font-size: 13px;
         font-weight: 500;
         
@@ -46,7 +46,7 @@
     }
 
     & .bottom {
-        height: 100px;
+        height: 80px;
         display: flex;
         flex-direction: column;
         font-size: 14px;

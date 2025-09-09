@@ -8,6 +8,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { NotificationsService } from 'angular2-notifications';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordDialog } from './forgot-password-dialog/forgot-password-dialog';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +18,8 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrl: './login.css'
 })
 export class Login {
+  private dialog = inject(MatDialog);
+
   authService = inject(Auth);
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -53,6 +57,10 @@ export class Login {
         this.notifications.error('Login fallido', 'Credenciales inválidas o error de red');
       }
     });
+  }
+
+  openForgotPassword() {
+    this.dialog.open(ForgotPasswordDialog, { disableClose: true });
   }
 
 }

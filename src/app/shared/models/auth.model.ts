@@ -13,8 +13,8 @@ export interface RegisterRequestBody {
     lastName: string;
     password: string;
     email: string;
-    documentType: string;
-    age: string;
+    documentType: number;
+    age: number;
     confirmPassword: string;
 }
 
@@ -23,4 +23,13 @@ export interface ChangePasswordRequestBody {
     token: string;
     newPassword: string;
     confirmNewPassword: string;
+}
+
+export interface RequestTokenBody {
+    email: string;
+}
+
+export interface ChangePasswordBody {
+    oldPassword: string;
+    newPassword: string;
 }

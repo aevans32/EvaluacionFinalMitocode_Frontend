@@ -1,0 +1,50 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  & .title-container {
+    display: flex;
+    justify-content: center;
+    & .title {
+      width: 1000px;
+      font-weight: 500;
+      font-size: large;
+    }
+  }
+  & .content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    & .signup-form {
+      background-color: var(--secondary-color);
+      border-radius: 8px;
+      width: 1000px;
+      & .form-title-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        & span {
+          color: var(--primary-color);
+          font-weight: 500;
+        }
+      }
+      & form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        justify-content: center;
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      & form button {
+        grid-column: span 2;
+        justify-content: center;
+      }
+    }
+  }
+}
