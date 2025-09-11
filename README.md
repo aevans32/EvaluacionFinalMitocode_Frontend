@@ -6,9 +6,9 @@ Parte de proyecto final del curso FullStack Development en .Net 9 y Angular 20 d
 ---
 
 ## 👤 Autor
-- Andrés Evans
-- github.com/aevans32
-- linkedin.com/in/andresevans
+- **Andrés Evans**
+- GitHub: [github.com/aevans32](https://github.com/aevans32)
+- LinkedIn: [linkedin.com/in/andresevans](https://www.linkedin.com/in/andresevans)
 
 ---
 
